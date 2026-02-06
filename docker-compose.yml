@@ -1,0 +1,11 @@
+services:
+  client:
+    container_name: "notes-client-cont"
+    image: "notes-client-img"
+    build:
+      context: ./
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app # для hmr
+      - /app/node_modules # не затираем node_modules
