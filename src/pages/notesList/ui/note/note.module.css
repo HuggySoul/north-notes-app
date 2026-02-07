@@ -1,0 +1,57 @@
+.note {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 320px;
+  height: 450px;
+}
+
+.note :global(.ant-card-body) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+
+.note :global(.ant-card-cover) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.image {
+  object-fit: cover;
+  max-height: 150px;
+  border-radius: 20px;
+}
+
+.text {
+  display: -webkit-box;
+  -webkit-line-clamp: 15;
+  line-clamp: 15;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  overflow-wrap: anywhere;
+  word-break: break-word; /* кроссбраузерный фолбэк */
+  overflow: hidden;
+}
+
+.text.short {
+  -webkit-line-clamp: 7;
+  line-clamp: 7;
+}
+
+.date {
+  font-weight: 700;
+}
+
+.editBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
