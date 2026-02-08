@@ -3,7 +3,9 @@ export interface Note {
 
   title: string;
   text?: string;
-  image?: string;
+  image?: NoteImage;
 
   createdAt: string;
 }
+
+export type NoteImage = { kind: "blob"; blob: Blob } | { kind: "url"; url: string };
