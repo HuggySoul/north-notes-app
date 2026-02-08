@@ -26,15 +26,13 @@ export function NotesList() {
         )}
       </NoteModal>
 
-      <div className={cls.notesWrap}>
-        <ul className={cls.notes}>
-          {notesFromStore.map((n) => (
-            <li key={n.id}>
-              <Note note={n} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className={cls.notes}>
+        {notesFromStore.map((n) => (
+          <li key={n.id}>
+            <Note note={n} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
