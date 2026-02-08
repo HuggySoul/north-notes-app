@@ -1,52 +1,71 @@
 import cls from "./note.module.css";
-import type { Note } from "@/shared/types";
-import { Card, Button, Tooltip } from "antd";
+import type { Note as NoteType } from "@/shared/types";
+import { Card, Button, Tooltip, Image } from "antd";
 import { EditFilled } from "@ant-design/icons";
-import { useMemo } from "react";
+import { useMemo, useEffect, memo } from "react";
 import { getDateParams } from "@/shared/utils";
+import { revokeIfBlob, noteImageToSrc } from "@/shared/utils";
+import { NoteModal } from "../noteModal/noteModal";
 
 interface IProps {
-  note: Note;
+  note: NoteType;
 }
 
 /** Заметка */
-export function Note({ note }: IProps) {
+export const Note = memo(({ note }: IProps) => {
   const formattedDate = useMemo(() => {
     const dateParams = getDateParams(note.createdAt);
-    return `${dateParams.month}.${dateParams.day}.${dateParams.year}`;
+    return `${dateParams.day}.${dateParams.month}.${dateParams.year}`;
   }, [note.createdAt]);
+
+  const src = useMemo(
+    () => (note.image ? noteImageToSrc(note.image) : null),
+    [note.image],
+  );
+
+  useEffect(() => {
+    if (!note.image || !src) return;
+
+    return () => revokeIfBlob(note.image!, src);
+  }, [note.image, src]);
 
   return (
     <>
-      <article>
-        <Card
-          cover={
-            note.image && (
-              <img
-                className={cls.image}
-                draggable={false}
-                alt="note image"
-                src={note.image}
-              />
-            )
-          }
-          hoverable
-          title={note.title}
-          className={cls.note}
-        >
-          <p className={`${cls.text} ${note.image && cls.short}`}>{note.text}</p>
-          <span className={cls.date}>{formattedDate}</span>
-          <Tooltip placement="topRight" title="Редактировать">
-            <Button
-              shape="circle"
-              icon={<EditFilled />}
-              type="primary"
-              className={cls.editBtn}
-              size="large"
-            ></Button>
-          </Tooltip>
-        </Card>
-      </article>
+      <NoteModal note={note} noteId={note.id} variant="attached">
+        {({ openEdit, openView }) => (
+          <article>
+            <Card
+              onClick={openView}
+              cover={
+                src && (
+                  <Image
+                    preview={false}
+                    className={cls.image}
+                    alt="note image"
+                    src={src}
+                  />
+                )
+              }
+              hoverable
+              title={note.title}
+              className={cls.note}
+            >
+              <p className={`${cls.text} ${note.image && cls.short}`}>{note.text}</p>
+              <span className={cls.date}>{formattedDate}</span>
+              <Tooltip placement="topRight" title="Редактировать">
+                <Button
+                  onClick={openEdit}
+                  shape="circle"
+                  icon={<EditFilled />}
+                  type="primary"
+                  className={cls.editBtn}
+                  size="large"
+                ></Button>
+              </Tooltip>
+            </Card>
+          </article>
+        )}
+      </NoteModal>
     </>
   );
-}
+});

@@ -1,0 +1,85 @@
+.noteModal :global(.ant-modal-content) {
+  padding: 16px 16px 12px;
+  min-height: 500px;
+}
+
+.noteModal :global(.ant-modal) {
+  max-width: 800px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+}
+
+.title {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.imageBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  max-width: 75%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.imageActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.divider {
+  margin: 6px 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+.textarea :global(textarea.ant-input) {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  resize: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}

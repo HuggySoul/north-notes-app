@@ -1,22 +1,40 @@
 import cls from "./notesList.module.css";
 import { Note } from "./ui/note/note";
-
-const MOCK_NOTES = [
-  {
-    id: "1",
-    title:
-      "Заметка 1в йцв йцв йцв й дйз дцузда цзузда цуда цдуах дцуад цхуд цдуха дцхуда цдуа",
-    createdAt: "2026-02-02T12:38:22.481Z",
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
-    text: "apflwlf p[lew[fl [wleff wefp wlepf у цзацзуда дуда здцзуда зхуцда хцузад цузад цзуад цхухад цуазд д apflwlf p[lew[fl [wleff wefp wlepf у цзацзуда дуда здцзуда зхуцда хцузад цузад цзуад цхухад цуазд д apflwlf p[lew[fl [wleff wefp wlepf у цзацзуда дуда здцзуда зхуцда хцузад цузад цзуад цхухад цуазд д apflwlf p[lew[fl [wleff wefp wlepf у цзацзуда дуда здцзуда зхуцда хцузад цузад цзуад цхухад цуазд д apflwlf p[lew[fl [wleff wefp wlepf у цзацзуда дуда здцзуда зхуцда хцузад цузад цзуад цхухад цуазд д apflwlf p[lew[fl [wleff wefp wlepf у цзацзуда дуда здцзуда зхуцда хцузад цузад цзуад цхухад цуазд д",
-  },
-];
+import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { selectAllNotes } from "@/features/notesCRUD";
+import { useAppSelector } from "@/shared/types";
+import { NoteModal } from "./ui/noteModal/noteModal";
 
 /** Страница со списком заметок */
 export function NotesList() {
+  const notesFromStore = useAppSelector(selectAllNotes);
+
   return (
     <div className={cls.notesList}>
-      <Note note={MOCK_NOTES[0]} />
+      <NoteModal variant="create">
+        {({ openCreate }) => (
+          <Button
+            onClick={openCreate}
+            className={cls.createBtn}
+            icon={<PlusOutlined />}
+            iconPlacement="end"
+            type="primary"
+          >
+            Новая заметка
+          </Button>
+        )}
+      </NoteModal>
+
+      <div className={cls.notesWrap}>
+        <ul className={cls.notes}>
+          {notesFromStore.map((n) => (
+            <li key={n.id}>
+              <Note note={n} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

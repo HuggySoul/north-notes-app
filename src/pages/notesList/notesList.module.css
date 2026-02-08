@@ -1,3 +1,25 @@
 .notesList {
-  padding: 30px;
+  padding: 20px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.createBtn {
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+  margin-bottom: 20px;
+}
+
+.notesWrap {
+  display: flex;
+  justify-content: center; /* центрируем всю "полосу карточек" */
+}
+
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start; /* последняя строка всегда слева */
+  min-width: 0;
 }
