@@ -1,0 +1,1 @@
+export { MockNotes } from "./mockNotes";
