@@ -54,7 +54,10 @@ export const Note = memo(({ note }: IProps) => {
               <span className={cls.date}>{formattedDate}</span>
               <Tooltip placement="topRight" title="Редактировать">
                 <Button
-                  onClick={openEdit}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openEdit();
+                  }}
                   shape="circle"
                   icon={<EditFilled />}
                   type="primary"
