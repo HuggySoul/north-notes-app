@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# Краткое описание
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Проект создавался в рамках отбора на стажировку в IT HUB «Северсталь» и представляет из себя простейшее приложение с заметками (Задание А).
 
-Currently, two official plugins are available:
+С особенностями реализации можно ознакомиться [здесь](#особенности-реализации)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Инструкция по развёртыванию с Docker
 
-## React Compiler
+- Для клонирования репозитория выполните:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  ```
+  git clone https://github.com/HuggySoul/north-notes-app.git
+  ```
 
-## Expanding the ESLint configuration
+- Запустите Docker или установите с [официального сайта](https://www.docker.com/products/docker-desktop/)
+- Выполните команду для сборки проекта и запуска контейнеров в корневой папке проекта
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  ```sh
+  docker-compose up --build
+  ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Перейдите по адресу http://localhost:8080/ для просмотра клиентской части
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Инструкция по развёртыванию с npm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Для клонирования репозитория выполните:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  ```
+  git clone https://github.com/HuggySoul/north-notes-app.git
+  ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Перейдите в корневую директорию и выполните команду для установки node-модулей:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  ```sh
+  npm i
+  ```
+
+- В этой же директории выполните любой [доступный скрипт](#доступные-скрипты), например, запустите в режиме разработки:
+
+  ```sh
+  npm run dev
+  ```
+
+- Перейдите по адресу `http://localhost:8080/`
+
+# Доступные скрипты
+
+- Запуск в режиме разработки:
+
+  ```sh
+  npm run dev
+  ```
+
+- Сборка проекта:
+
+  ```sh
+  npm run build
+  ```
+
+- Запуск в режиме предварительного просмотра производственной сборки:
+
+  ```sh
+  npm run preview
+  ```
+
+- Запуск ESlint:
+  ```sh
+  npm run lint
+  ```
+
+# Особенности реализации
+
+1. Приложение поддерживает создание, просмотр, удаление, редактирование заметок
+2. Заметки хранятся в глобальном сторе Redux и синхронизируются с Index DB с помощью библиотеки idb
+3. Поддерживается добавление изображения к заметке
+4. Поддерживается смена темы приложения
+5. В качестве UI-kit используется библиотека Ant design
